@@ -1,0 +1,24 @@
+/* Styling for the YouTubeLink page */
+.youtube-link-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .youtube-video {
+    margin-top: 20px;
+  }
+  
+  .youtube-link {
+    margin-top: 20px;
+  }
+  
+  .youtube-link a {
+    color: #1a73e8;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  
+  .youtube-link a:hover {
+    text-decoration: underline;
+  }
+  

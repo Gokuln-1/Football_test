@@ -1,0 +1,64 @@
+.game-page {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game-page form {
+  margin-bottom: 20px;
+}
+
+.game-page input, .game-page select {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px 5px;
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.game-page button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #b0b0b0; /* Grey scale */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.game-page button:hover {
+  background-color: #8d8d8d;
+}
+
+.player-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.small-btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  background-color: #b0b0b0;
+  color: white;
+  border-radius: 3px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.small-btn:hover {
+  background-color: #8d8d8d;
+}
+
+.game-page form input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px 5px;
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+

@@ -1,0 +1,52 @@
+.player-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: left;
+  width: 200px;
+  margin: 10px;
+}
+
+.player-card.high-score {
+  background-color: #e6f7e6; /* Light green background for high scorers */
+}
+
+.player-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.player-card p {
+  font-size: 14px;
+}
+
+.edit-btn, .delete-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.delete-btn {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #d9363e;
+}
+
+  

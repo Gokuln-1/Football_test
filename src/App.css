@@ -1,0 +1,59 @@
+/* App.css */
+.player-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.player-card {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center;
+}
+
+.add-player-form {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 8px;
+  margin-right: 10px;
+  width: 200px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .player-card {
+    width: 100%;
+  }
+}
+
+.player-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.player-stats-table th, .player-stats-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.player-stats-table th {
+  background-color: #f2f2f2;
+}
+

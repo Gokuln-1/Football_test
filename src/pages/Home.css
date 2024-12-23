@@ -1,0 +1,32 @@
+.home-page {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game-card {
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.player-stats-table th, .player-stats-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.player-stats-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
