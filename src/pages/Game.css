@@ -30,6 +30,16 @@
   background-color: #8d8d8d;
 }
 
+.teams {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.team {
+  width: 45%;
+}
+
 .player-cards {
   display: flex;
   flex-wrap: wrap;
@@ -52,13 +62,11 @@
   background-color: #8d8d8d;
 }
 
-.game-page form input[type="date"] {
-  padding: 10px;
-  font-size: 16px;
-  margin: 10px 5px;
-  width: 200px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.winning-team {
+  margin-top: 20px;
 }
 
-
+.winning-team label {
+  margin-right: 20px;
+  font-size: 16px;
+}

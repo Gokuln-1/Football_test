@@ -30,3 +30,32 @@
   background-color: #f2f2f2;
   font-weight: bold;
 }
+
+.game-tables {
+  margin-bottom: 40px;
+}
+
+.teams-tables {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.team-table {
+  width: 45%;
+}
+
+.team-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.team-table th, .team-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.team-table th {
+  background-color: #f2f2f2;
+}

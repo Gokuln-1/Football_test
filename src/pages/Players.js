@@ -6,7 +6,16 @@ const Players = ({ players, setPlayers }) => {
 
   const addPlayer = () => {
     if (newPlayerName.trim() !== '') {
-      const newPlayer = { name: newPlayerName, score: 0, assists: 0, saves: 0 };
+      const newPlayer = {
+        name: newPlayerName,
+        score: 0,
+        assists: 0,
+        saves: 0,
+        gamesPlayed: 0,
+        wins: 0,
+        losses: 0,
+        draws: 0,
+      };
       setPlayers([...players, newPlayer]);
       setNewPlayerName('');
     }
@@ -25,10 +34,10 @@ const Players = ({ players, setPlayers }) => {
         <button onClick={addPlayer}>Add Player</button>
       </div>
 
-      <div className="player-cards">
+      <div className="player-list">
         {players.map((player, index) => (
-          <div key={index} className="player-card">
-            <h3>{player.name}</h3>
+          <div key={index} className="player-item">
+            {player.name}
           </div>
         ))}
       </div>

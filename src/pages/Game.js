@@ -2,36 +2,49 @@ import React, { useState } from 'react';
 import './Game.css';
 
 const Game = ({ players, setPlayers, saveGameData }) => {
-  const [gameName, setGameName] = useState('');
+  const [gameNumber, setGameNumber] = useState('');
   const [gameDate, setGameDate] = useState('');
+  const [team1, setTeam1] = useState([]);
+  const [team2, setTeam2] = useState([]);
+  const [winningTeam, setWinningTeam] = useState('');
   const [playerStats, setPlayerStats] = useState(
     players.map((player) => ({
       ...player,
       score: 0,
       assists: 0,
       saves: 0,
+      gamesPlayed: 0,
+      wins: 0,
+      losses: 0,
+      draws: 0,
     }))
   );
 
-  const updateStat = (index, stat, type) => {
-    const updatedStats = [...playerStats];
-    if (type === 'increase') {
-      updatedStats[index][stat] += 1;
-    } else if (type === 'decrease' && updatedStats[index][stat] > 0) {
-      updatedStats[index][stat] -= 1;
-    }
+  const updateStat = (playerName, stat, type) => {
+    const updatedStats = playerStats.map((player) => {
+      if (player.name === playerName) {
+        return {
+          ...player,
+          [stat]: type === 'increase' ? player[stat] + 1 : Math.max(player[stat] - 1, 0),
+        };
+      }
+      return player;
+    });
     setPlayerStats(updatedStats);
   };
 
   const handleSaveGame = () => {
-    if (!gameName || !gameDate) {
-      alert('Please provide a game name and date.');
+    if (!gameNumber || !gameDate || !winningTeam) {
+      alert('Please provide a game number, date, and select the winning team.');
       return;
     }
 
     const gameData = {
-      gameName,
+      gameName: `Game ${gameNumber}`,
       gameDate,
+      team1,
+      team2,
+      winningTeam,
       playerStats,
     };
 
@@ -39,29 +52,58 @@ const Game = ({ players, setPlayers, saveGameData }) => {
 
     const updatedPlayers = players.map((player) => {
       const gamePlayerStats = playerStats.find((p) => p.name === player.name);
+      const isTeam1 = team1.includes(player.name);
+      const isTeam2 = team2.includes(player.name);
+      const isDraw = winningTeam === 'draw' && (isTeam1 || isTeam2);
+
       return {
         ...player,
         score: player.score + gamePlayerStats.score,
         assists: player.assists + gamePlayerStats.assists,
         saves: player.saves + gamePlayerStats.saves,
+        gamesPlayed: player.gamesPlayed + (isTeam1 || isTeam2 ? 1 : 0),
+        wins: player.wins + (winningTeam === 'team1' && isTeam1 || winningTeam === 'team2' && isTeam2 ? 1 : 0),
+        losses: player.losses + (winningTeam === 'team1' && isTeam2 || winningTeam === 'team2' && isTeam1 ? 1 : 0),
+        draws: player.draws + (isDraw ? 1 : 0),
       };
     });
 
     setPlayers(updatedPlayers);
-    setGameName('');
+    setGameNumber('');
     setGameDate('');
+    setTeam1([]);
+    setTeam2([]);
+    setWinningTeam('');
+    setPlayerStats(
+      players.map((player) => ({
+        ...player,
+        score: 0,
+        assists: 0,
+        saves: 0,
+        gamesPlayed: 0,
+        wins: 0,
+        losses: 0,
+        draws: 0,
+      }))
+    );
+  };
+
+  const handleTeamChange = (team, setTeam, playerName) => {
+    if (!team.includes(playerName)) {
+      setTeam([...team, playerName]);
+    }
   };
 
   return (
     <div className="game-page">
       <h2>Game Page</h2>
       <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          placeholder="Game Name"
-          value={gameName}
-          onChange={(e) => setGameName(e.target.value)}
-        />
+        <select value={gameNumber} onChange={(e) => setGameNumber(e.target.value)}>
+          <option value="">Select Game Number</option>
+          {[...Array(10).keys()].map((num) => (
+            <option key={num + 1} value={num + 1}>Game {num + 1}</option>
+          ))}
+        </select>
         <input
           type="date"
           value={gameDate}
@@ -69,30 +111,116 @@ const Game = ({ players, setPlayers, saveGameData }) => {
         />
       </form>
 
-      <div className="player-cards">
-        {playerStats.map((player, index) => (
-          <div key={index} className="player-card">
-            <h3>{player.name}</h3>
-            <p>
-              <strong>Score:</strong>
-              <button className="small-btn" onClick={() => updateStat(index, 'score', 'increase')}>+</button>
-              {player.score}
-              <button className="small-btn" onClick={() => updateStat(index, 'score', 'decrease')}>-</button>
-            </p>
-            <p>
-              <strong>Assists:</strong>
-              <button className="small-btn" onClick={() => updateStat(index, 'assists', 'increase')}>+</button>
-              {player.assists}
-              <button className="small-btn" onClick={() => updateStat(index, 'assists', 'decrease')}>-</button>
-            </p>
-            <p>
-              <strong>Saves:</strong>
-              <button className="small-btn" onClick={() => updateStat(index, 'saves', 'increase')}>+</button>
-              {player.saves}
-              <button className="small-btn" onClick={() => updateStat(index, 'saves', 'decrease')}>-</button>
-            </p>
+      <div className="teams">
+        <div className="team">
+          <h3>Team 1</h3>
+          <select onChange={(e) => handleTeamChange(team1, setTeam1, e.target.value)}>
+            <option value="">Select Player</option>
+            {players.map((player, index) => (
+              <option key={index} value={player.name}>{player.name}</option>
+            ))}
+          </select>
+          <div className="player-cards">
+            {team1.map((playerName, index) => {
+              const player = playerStats.find((p) => p.name === playerName);
+              return (
+                <div key={index} className="player-card">
+                  <h3>{player.name}</h3>
+                  <p>
+                    <strong>Score:</strong>
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'increase')}>+</button>
+                    {player.score}
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'decrease')}>-</button>
+                  </p>
+                  <p>
+                    <strong>Assists:</strong>
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'increase')}>+</button>
+                    {player.assists}
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'decrease')}>-</button>
+                  </p>
+                  <p>
+                    <strong>Saves:</strong>
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'increase')}>+</button>
+                    {player.saves}
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
+                  </p>
+                </div>
+              );
+            })}
           </div>
-        ))}
+        </div>
+
+        <div className="team">
+          <h3>Team 2</h3>
+          <select onChange={(e) => handleTeamChange(team2, setTeam2, e.target.value)}>
+            <option value="">Select Player</option>
+            {players.map((player, index) => (
+              <option key={index} value={player.name}>{player.name}</option>
+            ))}
+          </select>
+          <div className="player-cards">
+            {team2.map((playerName, index) => {
+              const player = playerStats.find((p) => p.name === playerName);
+              return (
+                <div key={index} className="player-card">
+                  <h3>{player.name}</h3>
+                  <p>
+                    <strong>Score:</strong>
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'increase')}>+</button>
+                    {player.score}
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'decrease')}>-</button>
+                  </p>
+                  <p>
+                    <strong>Assists:</strong>
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'increase')}>+</button>
+                    {player.assists}
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'decrease')}>-</button>
+                  </p>
+                  <p>
+                    <strong>Saves:</strong>
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'increase')}>+</button>
+                    {player.saves}
+                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="winning-team">
+        <h3>Select Winning Team</h3>
+        <label>
+          <input
+            type="radio"
+            name="winningTeam"
+            value="team1"
+            checked={winningTeam === 'team1'}
+            onChange={() => setWinningTeam('team1')}
+          />
+          Team 1
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="winningTeam"
+            value="team2"
+            checked={winningTeam === 'team2'}
+            onChange={() => setWinningTeam('team2')}
+          />
+          Team 2
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="winningTeam"
+            value="draw"
+            checked={winningTeam === 'draw'}
+            onChange={() => setWinningTeam('draw')}
+          />
+          Draw
+        </label>
       </div>
 
       <button onClick={handleSaveGame}>Save Changes</button>
@@ -101,4 +229,3 @@ const Game = ({ players, setPlayers, saveGameData }) => {
 };
 
 export default Game;
-
