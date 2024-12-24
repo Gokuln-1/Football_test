@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Game.css';
 
-const Game = ({ players, setPlayers, saveGameData }) => {
+const Game = ({ players, setPlayers, saveGameData, games }) => {
   const [gameNumber, setGameNumber] = useState('');
   const [gameDate, setGameDate] = useState('');
   const [team1, setTeam1] = useState([]);
@@ -39,7 +39,10 @@ const Game = ({ players, setPlayers, saveGameData }) => {
       return;
     }
 
+    const gameID = games.length + 1;
+
     const gameData = {
+      gameID,
       gameName: `Game ${gameNumber}`,
       gameDate,
       team1,
@@ -62,8 +65,8 @@ const Game = ({ players, setPlayers, saveGameData }) => {
         assists: player.assists + gamePlayerStats.assists,
         saves: player.saves + gamePlayerStats.saves,
         gamesPlayed: player.gamesPlayed + (isTeam1 || isTeam2 ? 1 : 0),
-        wins: player.wins + (winningTeam === 'team1' && isTeam1 || winningTeam === 'team2' && isTeam2 ? 1 : 0),
-        losses: player.losses + (winningTeam === 'team1' && isTeam2 || winningTeam === 'team2' && isTeam1 ? 1 : 0),
+        wins: player.wins + ((winningTeam === 'team1' && isTeam1) || (winningTeam === 'team2' && isTeam2) ? 1 : 0),
+        losses: player.losses + ((winningTeam === 'team1' && isTeam2) || (winningTeam === 'team2' && isTeam1) ? 1 : 0),
         draws: player.draws + (isDraw ? 1 : 0),
       };
     });
@@ -92,6 +95,10 @@ const Game = ({ players, setPlayers, saveGameData }) => {
     if (!team.includes(playerName)) {
       setTeam([...team, playerName]);
     }
+  };
+
+  const handleRemovePlayer = (team, setTeam, playerName) => {
+    setTeam(team.filter((name) => name !== playerName));
   };
 
   return (
@@ -144,6 +151,7 @@ const Game = ({ players, setPlayers, saveGameData }) => {
                     {player.saves}
                     <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
                   </p>
+                  <button className="remove-btn" onClick={() => handleRemovePlayer(team1, setTeam1, playerName)}>Remove</button>
                 </div>
               );
             })}
@@ -182,6 +190,7 @@ const Game = ({ players, setPlayers, saveGameData }) => {
                     {player.saves}
                     <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
                   </p>
+                  <button className="remove-btn" onClick={() => handleRemovePlayer(team2, setTeam2, playerName)}>Remove</button>
                 </div>
               );
             })}

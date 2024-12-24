@@ -3,6 +3,8 @@ import './Players.css';
 
 const Players = ({ players, setPlayers }) => {
   const [newPlayerName, setNewPlayerName] = useState('');
+  const [playerToDelete, setPlayerToDelete] = useState(null);
+  const [confirmationText, setConfirmationText] = useState('');
 
   const addPlayer = () => {
     if (newPlayerName.trim() !== '') {
@@ -21,6 +23,25 @@ const Players = ({ players, setPlayers }) => {
     }
   };
 
+  const handleDeletePlayer = (playerName) => {
+    setPlayerToDelete(playerName);
+  };
+
+  const confirmDeletePlayer = () => {
+    if (confirmationText === 'delete') {
+      setPlayers(players.filter((player) => player.name !== playerToDelete));
+      setPlayerToDelete(null);
+      setConfirmationText('');
+    } else {
+      alert('Please type "delete" to confirm.');
+    }
+  };
+
+  const cancelDeletePlayer = () => {
+    setPlayerToDelete(null);
+    setConfirmationText('');
+  };
+
   return (
     <div className="player-page">
       <h2>Players</h2>
@@ -33,14 +54,28 @@ const Players = ({ players, setPlayers }) => {
         />
         <button onClick={addPlayer}>Add Player</button>
       </div>
-
       <div className="player-list">
         {players.map((player, index) => (
           <div key={index} className="player-item">
             {player.name}
+            <button className="delete-btn" onClick={() => handleDeletePlayer(player.name)}>Delete</button>
           </div>
         ))}
       </div>
+
+      {playerToDelete && (
+        <div className="confirmation-dialog">
+          <p>Are you sure you want to delete {playerToDelete}? Type "delete" to confirm.</p>
+          <input
+            type="text"
+            value={confirmationText}
+            onChange={(e) => setConfirmationText(e.target.value)}
+            placeholder="Type 'delete' to confirm"
+          />
+          <button onClick={confirmDeletePlayer}>Confirm</button>
+          <button onClick={cancelDeletePlayer}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 };

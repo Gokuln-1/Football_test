@@ -18,12 +18,12 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="content">
+      <div className="app">
         <Routes>
-          <Route path="/" element={<Home games={games} />} />
+          <Route path="/" element={<Home games={games} setGames={setGames} players={players} setPlayers={setPlayers} />} />
           <Route path="/players" element={<Players players={players} setPlayers={setPlayers} />} />
+          <Route path="/game" element={<Game players={players} setPlayers={setPlayers} saveGameData={saveGameData} games={games} />} />
           <Route path="/player-totals" element={<PlayerTotals players={players} />} />
-          <Route path="/game" element={<Game players={players} setPlayers={setPlayers} saveGameData={saveGameData} />} />
         </Routes>
       </div>
     </Router>

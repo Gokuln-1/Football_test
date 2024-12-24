@@ -1,26 +1,18 @@
-import React, { Component } from 'react';
-import { MenuItems } from '../../MenuItems';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-class Navbar extends Component {
-  render() {
-    return (
-      <nav className="NavbarItems">
-        <h1 className="navbar-logo">React</h1>
-        <ul>
-          {MenuItems.map((item, index) => (
-            <li key={index}>
-              <Link className={item.cname} to={item.url}>
-                {item.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    );
-  }
-}
+const Navbar = () => {
+  return (
+    <nav className="navbar">
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/players">Players</Link></li>
+        <li><Link to="/game">Game</Link></li>
+        <li><Link to="/player-totals">Player Totals</Link></li>
+      </ul>
+    </nav>
+  );
+};
 
 export default Navbar;
-
