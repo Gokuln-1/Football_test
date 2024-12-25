@@ -198,9 +198,8 @@ const Game = ({ players, setPlayers, saveGameData, games }) => {
         </div>
       </div>
 
-      <div className="winning-team">
-        <h3>Select Winning Team</h3>
-        <label>
+      <div className="radio-inputs">
+        <label className="radio">
           <input
             type="radio"
             name="winningTeam"
@@ -208,9 +207,9 @@ const Game = ({ players, setPlayers, saveGameData, games }) => {
             checked={winningTeam === 'team1'}
             onChange={() => setWinningTeam('team1')}
           />
-          Team 1
+          <span className="name">Team 1</span>
         </label>
-        <label>
+        <label className="radio">
           <input
             type="radio"
             name="winningTeam"
@@ -218,9 +217,9 @@ const Game = ({ players, setPlayers, saveGameData, games }) => {
             checked={winningTeam === 'team2'}
             onChange={() => setWinningTeam('team2')}
           />
-          Team 2
+          <span className="name">Team 2</span>
         </label>
-        <label>
+        <label className="radio">
           <input
             type="radio"
             name="winningTeam"
@@ -228,7 +227,7 @@ const Game = ({ players, setPlayers, saveGameData, games }) => {
             checked={winningTeam === 'draw'}
             onChange={() => setWinningTeam('draw')}
           />
-          Draw
+          <span className="name">Draw</span>
         </label>
       </div>
 
