@@ -1,35 +1,48 @@
 .player-totals-page {
   text-align: center;
   margin-top: 50px;
+  width: 100%;
 }
 
-.player-cards {
+.filter-container {
+  margin-bottom: 20px;
+}
+
+.player-totals-cards {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px; /* Further reduce gap between cards */
+  width: 100%;
 }
 
-.player-card {
+.player-totals-card, .player-totals-header-card {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
-  width: 200px;
+  padding: 10px; /* Reduce padding */
+  width: 100%; /* Use full width */
+  max-width: 1200px; /* Set a max-width for better responsiveness */
   background-color: #f9f9f9;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0; /* Remove margin between cards */
+  display: grid;
+  grid-template-columns: 1.5fr repeat(8, 1fr); /* Adjust the number of columns */
+  align-items: center;
+  gap: 1px; /* Further reduce gap */
 }
 
-.player-card h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.player-card p {
-  font-size: 14px;
-  margin: 5px 0;
-}
-
-strong {
+.player-totals-header-card {
+  background-color: #e0e0e0; /* Different background for header */
   font-weight: bold;
+  font-size: 14px; /* Reduce font size */
+}
+
+.player-totals-card-content {
+  display: contents; /* Use contents to make the grid items direct children */
+}
+
+.player-totals-card-content p, .player-totals-header-card p {
+  margin: 0;
+  text-align: center;
+  font-size: 14px; /* Reduce font size */
 }

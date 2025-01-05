@@ -132,26 +132,32 @@ const Game = ({ players, setPlayers, saveGameData, games }) => {
               const player = playerStats.find((p) => p.name === playerName);
               return (
                 <div key={index} className="player-card">
-                  <h3>{player.name}</h3>
-                  <p>
-                    <strong>Score:</strong>
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'increase')}>+</button>
-                    {player.score}
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'decrease')}>-</button>
-                  </p>
-                  <p>
-                    <strong>Assists:</strong>
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'increase')}>+</button>
-                    {player.assists}
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'decrease')}>-</button>
-                  </p>
-                  <p>
-                    <strong>Saves:</strong>
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'increase')}>+</button>
-                    {player.saves}
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
-                  </p>
-                  <button className="remove-btn" onClick={() => handleRemovePlayer(team1, setTeam1, playerName)}>Remove</button>
+                  <div className="player-card-header">
+                    <p className="player-name"><strong>{player.name}</strong></p>
+                  </div>
+                  <div className="player-card-info">
+                    <div className="player-stat">
+                      <strong>Score:</strong>
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'increase')}>+</button>
+                      {player.score}
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'decrease')}>-</button>
+                    </div>
+                    <div className="player-stat">
+                      <strong>Assists:</strong>
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'increase')}>+</button>
+                      {player.assists}
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'decrease')}>-</button>
+                    </div>
+                    <div className="player-stat">
+                      <strong>Saves:</strong>
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'increase')}>+</button>
+                      {player.saves}
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
+                    </div>
+                  </div>
+                  <div className="player-card-footer">
+                    <button className="remove-btn" onClick={() => handleRemovePlayer(team1, setTeam1, playerName)}>✖</button>
+                  </div>
                 </div>
               );
             })}
@@ -171,26 +177,32 @@ const Game = ({ players, setPlayers, saveGameData, games }) => {
               const player = playerStats.find((p) => p.name === playerName);
               return (
                 <div key={index} className="player-card">
-                  <h3>{player.name}</h3>
-                  <p>
-                    <strong>Score:</strong>
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'increase')}>+</button>
-                    {player.score}
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'decrease')}>-</button>
-                  </p>
-                  <p>
-                    <strong>Assists:</strong>
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'increase')}>+</button>
-                    {player.assists}
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'decrease')}>-</button>
-                  </p>
-                  <p>
-                    <strong>Saves:</strong>
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'increase')}>+</button>
-                    {player.saves}
-                    <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
-                  </p>
-                  <button className="remove-btn" onClick={() => handleRemovePlayer(team2, setTeam2, playerName)}>Remove</button>
+                  <div className="player-card-header">
+                    <p className="player-name"><strong>{player.name}</strong></p>
+                  </div>
+                  <div className="player-card-info">
+                    <div className="player-stat">
+                      <strong>Score:</strong>
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'increase')}>+</button>
+                      {player.score}
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'score', 'decrease')}>-</button>
+                    </div>
+                    <div className="player-stat">
+                      <strong>Assists:</strong>
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'increase')}>+</button>
+                      {player.assists}
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'assists', 'decrease')}>-</button>
+                    </div>
+                    <div className="player-stat">
+                      <strong>Saves:</strong>
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'increase')}>+</button>
+                      {player.saves}
+                      <button className="small-btn" onClick={() => updateStat(player.name, 'saves', 'decrease')}>-</button>
+                    </div>
+                  </div>
+                  <div className="player-card-footer">
+                    <button className="remove-btn" onClick={() => handleRemovePlayer(team2, setTeam2, playerName)}>✖</button>
+                  </div>
                 </div>
               );
             })}
